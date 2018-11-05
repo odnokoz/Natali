@@ -1,0 +1,133 @@
+.form {
+	&_group:not(:last-child) {
+		margin-bottom: 2rem;
+	}
+
+	&_input {
+		
+		background-color: rgba($color-white, .5);
+		border-radius: 2px;
+		//принудительное наследование, вместо дефолтных характеристик
+		font-family: inherit;
+		color: inherit;
+		font-size: 1.5rem;
+		padding: 1.5rem 2rem;
+		border: none;
+		//для того, чтобы формы не смещались при фокусировании
+		//когда добавляется подчеркивание color-primary
+		border-bottom: 3px solid transparent;
+		width: 90%;
+		display: block;
+		transition: all .3s;
+
+		@include respond(tab-port) {
+         	width: 100%;
+        }
+		
+		//при выделении формы
+		&:focus {
+			outline: none;
+			box-shadow: 0 1rem 2rem rgba($color-black, .1);
+			border-bottom: 3px solid $color-primary;
+		}
+
+		//если вводят invalid value
+
+		&:focus:invalid {
+			border-bottom: 3px solid $color-secondary-dark;
+		}
+		
+		//при вводе данных цвет изменяется
+		&::webkit-input-placeholder {
+			color: $color-grey-dark-2;
+		}
+
+	}
+
+	&_label {
+		display: block;
+		margin-left: 2rem;	
+		font-weight: 700;
+		font-size: 1.2rem;
+		margin-top: 0.7rem;
+		transition: all .2s;
+	}
+	//чтобы сработал sibling selector На label необходимо
+	//чтобы label находился сразу после input
+	&_input:placeholder-shown + &_label {
+
+		//we cannot animate visibility поэтому используем extra opacity
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-2rem);
+	}
+
+	&_radio-group {
+        width: 49%;
+        display: inline-block;
+
+         @include respond(tab-port) {
+         	width: 100%;
+         	margin-bottom: 2rem;
+         }
+    }
+
+    &_radio-input {
+        display: none;
+
+
+    }
+    
+    &_radio-label {
+       font-size: $default-font;
+        cursor: pointer;
+        position: relative;
+        padding-left: 4.5rem;
+    }
+
+    &_radio-button {
+        height: 2rem;
+        width: 2rem;
+        border: 5px solid $color-primary;
+        border-radius: 50%;
+        display: inline-block;
+        position: absolute;
+        left: 0;
+        top: -.2rem;
+
+        &::after {
+        	@include center;
+
+            content: "";
+            display: block;
+            height: 1.3rem;
+            width: 1.3rem;
+            border-radius: 50%;
+            background-color: $color-primary;
+            opacity: 0;
+            transition: opacity .2s;
+        }
+    }
+
+    &_radio-input:checked ~ &_radio-label &_radio-button::after {
+        opacity: 1;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
